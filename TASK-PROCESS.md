@@ -1,4 +1,4 @@
-* SETUP:
+## SETUP:
 - [ ] Redux saga
 - [ ] react-helmet
 - [ ] prettier
