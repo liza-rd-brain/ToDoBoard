@@ -11,6 +11,8 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
+import { loader as rootLoader } from "./routes/root";
+
 import { Main } from "./pages/Main";
 
 const router = createBrowserRouter(
