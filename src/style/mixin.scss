@@ -1,0 +1,12 @@
+@mixin fontType($size, $color) {
+  font-family: $font-family;
+  font-size: $size;
+  font-weight: 400;
+  color: $color
+}
+
+
+
+@mixin table-grid() {
+  grid-template-columns: 110px auto/* 757px */ repeat(4, 200px);
+} 
