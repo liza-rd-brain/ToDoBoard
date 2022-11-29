@@ -87,6 +87,14 @@ export const reducer = (
           };
           return newState;
         }
+        case "revertNewProject": {
+          const newState: State = {
+            ...state,
+            phase: { type: "idle" },
+            doEffect: null,
+          };
+          return newState;
+        }
 
         default: {
           return state;

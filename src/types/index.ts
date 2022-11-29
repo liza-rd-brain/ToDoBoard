@@ -12,6 +12,7 @@ export type ProjectId = string;
 export type ProjectItemType = {
   id: ProjectId;
   name: string;
+  creationTimeStamp: number;
   taskList: TaskItemType;
 };
 
@@ -27,15 +28,18 @@ export type PhaseType =
 
 export type EffectType =
   | { type: "!loadFireBase" }
-  | { type: "!saveProject"; data: string }
+  | { type: "!saveProject"; data: NewProjectType }
   | null;
 
 export type ActionType =
   //TODO: set payload type!
   | { type: "loadedData"; payload: any }
   | { type: "createProject" }
+  | { type: "revertNewProject" }
   | { type: "createItem" }
-  | { type: "startedSaveProject"; payload: string }
+  | { type: "startedSaveProject"; payload: NewProjectType }
   | { type: "endedSaveProject" };
 
 export type TaskItemType = any;
+
+export type NewProjectType = { name: string; date: number };

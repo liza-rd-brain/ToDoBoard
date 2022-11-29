@@ -4,7 +4,10 @@ import style from "./index.module.scss";
 export const Header = () => {
   const dispatch = useDispatch();
 
-  const createProject = () => {
+  const createProject = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.stopPropagation();
     dispatch({ type: "createProject" });
   };
 

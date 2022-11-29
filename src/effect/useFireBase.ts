@@ -16,13 +16,13 @@ import {
 import { db, path } from "../firebase";
 import { useAppDispatch } from "../business/reducer";
 import { useSelector } from "react-redux";
-import { ProjectId, State, StateDataType } from "../types";
+import { NewProjectType, ProjectId, State, StateDataType } from "../types";
 
 /**
  * hook for interaction with firebase
  */
 
-type LoadedValueType = { projectName: string };
+type LoadedValueType = { projectData: NewProjectType };
 type ProjectListType = Array<LoadedDataType>;
 
 type LoadedDataType = { id: ProjectId; value: LoadedValueType };
@@ -33,7 +33,8 @@ const getStateObject = (array: ProjectListType): StateDataType => {
       ...result,
       [projectItem.id]: {
         id: projectItem.id,
-        name: projectItem.value.projectName,
+        name: projectItem.value.projectData.name,
+        creationTimeStamp: projectItem.value.projectData.date,
         taskList: null,
       },
     };
@@ -48,11 +49,9 @@ export function useFireBase() {
     switch (doEffect?.type) {
       // automatically pull data when bd update
       case "!loadFireBase": {
-        const currQuery = query(collection(db, path), orderBy("creationDate"));
+        const currQuery = query(collection(db, path));
 
         onSnapshot(currQuery, (querySnapshot) => {
-          console.log("querySnapshot", querySnapshot);
-
           const projectList = querySnapshot.docs.map(
             (doc) =>
               ({
@@ -61,6 +60,7 @@ export function useFireBase() {
               } as LoadedDataType)
           );
 
+          console.log("projectList", projectList);
           const stateDataObject = getStateObject(projectList);
 
           dispatch({ type: "loadedData", payload: stateDataObject });
@@ -72,8 +72,8 @@ export function useFireBase() {
       case "!saveProject": {
         const data = doEffect.data;
         addDoc(collection(db, path), {
-          projectName: data,
-          creationDate: Timestamp.now(),
+          projectData: data,
+          /*   creationDate: Timestamp.now(), */
         })
           .then(() => {
             dispatch({ type: "endedSaveProject" });

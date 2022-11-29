@@ -8,7 +8,6 @@ import style from "./index.module.scss";
 
 export const BoardContainer = () => {
   const { phase, data } = useSelector((state: State) => state);
-  const dispatch = useDispatch();
 
   const boardHasCreatingForm = phase.type === "creatingProject";
 
@@ -16,20 +15,26 @@ export const BoardContainer = () => {
     data && Object.values(data); /* && Object.keys(data).length; */
 
   const getProjectList = (dataList: ProjectItemType[]) => {
-    return dataList.map((dataItem) => {
+    /**
+     * sort by data,new to begin
+     */
+    const sortedDataList = dataList.sort((dataItemPrev, dataItemNext) => {
+      const isBigger =
+        dataItemNext.creationTimeStamp - dataItemPrev.creationTimeStamp;
+
+      console.log(isBigger);
+      return isBigger;
+    });
+
+    return sortedDataList.map((dataItem) => {
       return <ProjectCard key={dataItem.id} name={dataItem.name} />;
     });
   };
 
   return (
     <div className={style.projectList}>
-      {/* <button className={style.button} onClick={createProject}>
-        +
-      </button> */}
-
       {boardHasCreatingForm ? <NewProject /> : null}
       {projectList ? getProjectList(projectList) : null}
-      {/* Далее иконки проектов */}
     </div>
   );
 };
