@@ -4,7 +4,7 @@ import { useFireBase } from "../../effect";
 import { ProjectBoard } from "../../pages/ProjectBoard";
 import { State } from "../../types";
 
-import "./index.scss";
+import style from "./index.module.scss";
 
 export const FireBaseContainer = () => {
   const { view } = useSelector((state: State) => state);
@@ -25,5 +25,5 @@ export const FireBaseContainer = () => {
 
   useFireBase();
 
-  return <div className="container">{getView()}</div>;
+  return <div className={style.container}>{getView()}</div>;
 };

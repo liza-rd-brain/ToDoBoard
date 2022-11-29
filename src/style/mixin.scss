@@ -14,7 +14,8 @@
 @mixin button($background) {
   // @font();
   background-color: $background;
-  // border-radius: @border-radius;
+  border-radius: 6px;
+  // border-radius: $border-radius;
   border-style: none;
   box-sizing: border-box;
   cursor: pointer;

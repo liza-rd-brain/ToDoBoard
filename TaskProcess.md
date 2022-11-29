@@ -1,11 +1,16 @@
 ## SETUP:
 - [ ] Redux saga
-- [ ] react-helmet
+- [ ] react-helmet ???
 - [ ] Любая библиотека для удобной работы с текстом(например tinymce)
 - [ ] Любая библиотека для работы с файлами
 - [ ] Любая библиотека для работы со временем
 - [x] prettier
 
+
+
+## STYLE:
+- [ ] input style override
+- [ ] button style override
 
 
 
