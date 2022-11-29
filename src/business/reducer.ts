@@ -1,9 +1,33 @@
 import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
-
-export type ActionType = { type: "appLoaded" };
+import { ActionType, State } from "../types";
+import { initialState } from "./initialState";
 
 export const useAppDispatch = () => {
   const appDispatch = useDispatch<Dispatch<ActionType>>();
   return appDispatch;
+};
+
+export const reducer = (
+  state: State = initialState,
+  action: ActionType
+): State => {
+  const phase = state.phase.type;
+
+  switch (phase) {
+    case "waitingDB": {
+      switch (action.type) {
+        case "loadedData": {
+          console.log("loadedData", action.payload);
+          return state;
+        }
+        default: {
+          return state;
+        }
+      }
+    }
+    default: {
+      return state;
+    }
+  }
 };

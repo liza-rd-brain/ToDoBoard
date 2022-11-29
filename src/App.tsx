@@ -1,8 +1,26 @@
-import React from "react";
+import { Provider } from "react-redux";
+
+import { store } from "./business/store";
+
 import "./App.css";
 
-function App() {
-  return <div className="App"></div>;
-}
+import { BrowserRouter } from "react-router-dom";
+import { FireBaseContainer } from "./features/FireBaseContainer";
+
+// const router = createBrowserRouter(
+//   createRoutesFromElements(<Route path="/" element={<Main />}></Route>)
+// );
+
+const App = () => {
+  return (
+    <Provider store={store}>
+      <BrowserRouter>
+        <div className="App">
+          <FireBaseContainer />
+        </div>
+      </BrowserRouter>
+    </Provider>
+  );
+};
 
 export default App;

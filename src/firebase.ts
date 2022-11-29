@@ -1,11 +1,7 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-
+import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
 export const firebaseConfig = {
   apiKey: "AIzaSyBe8C06KUiVcUpZ5SlBLK3YNS5f2kjdSgE",
   authDomain: "taskboard-a246f.firebaseapp.com",
@@ -18,5 +14,7 @@ export const firebaseConfig = {
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const storage = getStorage(app);
+const path = "taskBoard";
 
-export { db };
+export { db, storage, path };
