@@ -36,6 +36,7 @@ export const NewProject = () => {
     return () => {
       document.removeEventListener("click", closeNewProject);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

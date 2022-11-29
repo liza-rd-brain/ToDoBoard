@@ -67,7 +67,7 @@ export const reducer = (
           const newState: State = {
             ...state,
             view: "taskBoard",
-            currProjectId: action.payload,
+            // currProjectId: action.payload,
           };
           return newState;
         }

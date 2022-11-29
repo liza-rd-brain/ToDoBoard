@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
+
 import { Preloader } from "../../component/Preloader";
 import { useFireBase } from "../../effect";
 import { ProjectBoard } from "../../pages/ProjectBoard";
@@ -21,7 +22,7 @@ export const FireBaseContainer = () => {
         return (
           <Routes>
             <Route path="/" element={<ProjectBoard />} />
-            <Route path="/project/:name" element={<TaskBoard />} />
+            <Route path="/project/:id" element={<TaskBoard />} />
           </Routes>
         );
       }

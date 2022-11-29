@@ -1,14 +1,11 @@
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { Header } from "../../features/Header";
-import { State } from "../../types";
+import { useParams } from "react-router-dom";
 
 import style from "./index.module.scss";
+import { Header } from "../../features/Header";
 
 export const TaskBoard = () => {
-  const { currProjectId } = useSelector((state: State) => state);
-
-  console.log(currProjectId);
+  const { id } = useParams();
+  // contyst {  } = useSelector((state: State) => state);
 
   return (
     <div className={style.container}>

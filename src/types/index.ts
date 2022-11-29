@@ -3,7 +3,6 @@ export type State = {
   phase: PhaseType;
   doEffect: EffectType;
   data: StateDataType | null;
-  currProjectId: string | null;
 };
 
 export type StateDataType = Record<ProjectId, ProjectItemType>;

@@ -4,13 +4,13 @@ import {
   query,
   onSnapshot,
   addDoc,
-  doc,
+  /*   doc,
   updateDoc,
   deleteDoc,
   orderBy,
   Timestamp,
   getFirestore,
-  DocumentData,
+  DocumentData, */
 } from "firebase/firestore";
 
 import { db, path } from "../firebase";
@@ -87,5 +87,6 @@ export function useFireBase() {
         break;
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [doEffect]);
 }

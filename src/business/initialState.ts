@@ -5,5 +5,4 @@ export const initialState: State = {
   phase: { type: "waitingDB" },
   doEffect: { type: "!loadFireBase" },
   data: null,
-  currProjectId: null,
 };
