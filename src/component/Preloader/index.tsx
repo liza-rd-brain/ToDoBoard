@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import "./index.less";
+import "./index.scss";
 
 export const Preloader: FC<{ type: "big" | "small" }> = ({ type }) => {
   switch (type) {

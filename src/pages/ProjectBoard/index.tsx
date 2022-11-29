@@ -3,7 +3,7 @@ import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
 import { db, firebaseConfig } from "../../firebase";
 import style from "./index.module.scss";
 
-export const Main = () => {
+export const ProjectBoard = () => {
   //Подобие header +логотип на индекс
   //кнопка создать проект
   // выбрать проект

@@ -19,7 +19,9 @@ export const reducer = (
       switch (action.type) {
         case "loadedData": {
           console.log("loadedData", action.payload);
-          return state;
+
+          const newState: State = { ...state, view: "projectBoard" };
+          return newState;
         }
         default: {
           return state;

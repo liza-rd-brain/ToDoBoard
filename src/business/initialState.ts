@@ -1,7 +1,7 @@
 import { State } from "../types";
 
 export const initialState: State = {
-  view: "projectBoard",
+  view: "preloader",
   phase: { type: "waitingDB" },
   doEffect: { type: "!loadFireBase" },
 };

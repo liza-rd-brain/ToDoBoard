@@ -15,7 +15,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <div className="App">
+        <div className="app">
           <FireBaseContainer />
         </div>
       </BrowserRouter>
