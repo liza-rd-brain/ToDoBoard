@@ -1,12 +1,14 @@
 @import "../../style//mixin.scss";
 @import "../../style/variables.scss";
 
-
 .container {
     height: 100vh;
     width: 100%;
     margin: 0 auto;
 }
+
+
+
 
 .projectList {
     display: flex;
@@ -18,11 +20,6 @@
     &>* {
         min-width: 200px;
         min-height: 200px;
-    }
-
-    a{
-        color: inherit;
-        text-decoration: none;
     }
 }
 

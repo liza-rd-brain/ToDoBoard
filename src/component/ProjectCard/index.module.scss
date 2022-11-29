@@ -4,6 +4,7 @@
 
 .container {
     width: 300px;
+    height: 100%;
     padding: 10px;
     box-sizing: border-box;
     display: flex;
@@ -12,12 +13,19 @@
     justify-content: space-around;
     background-color: $light-gray-color;
     border-radius: 6px;
+    cursor: pointer;
+
+
+    &:hover{
+        background-color: $gray-color;
+    }
 
     input{
         height: 30px;
         width: 90%;
     }
 }
+
 
 .projectList {
     display: flex;

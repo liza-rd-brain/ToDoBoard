@@ -63,6 +63,15 @@ export const reducer = (
           }
         }
 
+        case "openProject": {
+          const newState: State = {
+            ...state,
+            view: "taskBoard",
+            currProjectId: action.payload,
+          };
+          return newState;
+        }
+
         default: {
           return state;
         }

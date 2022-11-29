@@ -3,6 +3,7 @@ export type State = {
   phase: PhaseType;
   doEffect: EffectType;
   data: StateDataType | null;
+  currProjectId: string | null;
 };
 
 export type StateDataType = Record<ProjectId, ProjectItemType>;
@@ -38,7 +39,8 @@ export type ActionType =
   | { type: "revertNewProject" }
   | { type: "createItem" }
   | { type: "startedSaveProject"; payload: NewProjectType }
-  | { type: "endedSaveProject" };
+  | { type: "endedSaveProject" }
+  | { type: "openProject"; payload: ProjectId };
 
 export type TaskItemType = any;
 

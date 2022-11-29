@@ -1,7 +1,9 @@
 import { useSelector } from "react-redux";
+import { Route, Routes } from "react-router-dom";
 import { Preloader } from "../../component/Preloader";
 import { useFireBase } from "../../effect";
 import { ProjectBoard } from "../../pages/ProjectBoard";
+import { TaskBoard } from "../../pages/TaskBoard";
 import { State } from "../../types";
 
 import style from "./index.module.scss";
@@ -14,11 +16,14 @@ export const FireBaseContainer = () => {
       case "preloader": {
         return <Preloader type="big" />;
       }
-      case "projectBoard": {
-        return <ProjectBoard />;
-      }
+
       default: {
-        return null;
+        return (
+          <Routes>
+            <Route path="/" element={<ProjectBoard />} />
+            <Route path="/project/:name" element={<TaskBoard />} />
+          </Routes>
+        );
       }
     }
   };

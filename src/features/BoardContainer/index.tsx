@@ -5,9 +5,10 @@ import { NewProject } from "../../component/NewProject";
 import { ProjectCard } from "../../component/ProjectCard";
 
 import style from "./index.module.scss";
+import { Link } from "react-router-dom";
 
 export const BoardContainer = () => {
-  const { phase, data } = useSelector((state: State) => state);
+  const { phase, data, currProjectId } = useSelector((state: State) => state);
 
   const boardHasCreatingForm = phase.type === "creatingProject";
 
@@ -19,15 +20,19 @@ export const BoardContainer = () => {
      * sort by data,new to begin
      */
     const sortedDataList = dataList.sort((dataItemPrev, dataItemNext) => {
-      const isBigger =
-        dataItemNext.creationTimeStamp - dataItemPrev.creationTimeStamp;
-
-      console.log(isBigger);
-      return isBigger;
+      return dataItemNext.creationTimeStamp - dataItemPrev.creationTimeStamp;
     });
 
     return sortedDataList.map((dataItem) => {
-      return <ProjectCard key={dataItem.id} name={dataItem.name} />;
+      return (
+        <Link key={dataItem.id} to={`/project/${dataItem.id}`}>
+          <ProjectCard
+            key={dataItem.id}
+            name={dataItem.name}
+            id={dataItem.id}
+          />
+        </Link>
+      );
     });
   };
 
