@@ -7,7 +7,7 @@ import { ProjectCard } from "../../component/ProjectCard";
 import style from "./index.module.scss";
 import { Link } from "react-router-dom";
 
-export const BoardContainer = () => {
+export const ProjectBoardContainer = () => {
   const { phase, data } = useSelector((state: State) => state);
 
   const boardHasCreatingForm = phase.type === "creatingProject";

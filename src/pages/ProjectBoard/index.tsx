@@ -1,4 +1,4 @@
-import { BoardContainer } from "../../features/BoardContainer";
+import { ProjectBoardContainer } from "../../features/ProjectBoardContainer";
 import { Header } from "../../features/Header";
 
 import style from "./index.module.scss";
@@ -11,7 +11,7 @@ export const ProjectBoard = () => {
   return (
     <div className={style.container}>
       <Header />
-      <BoardContainer />
+      <ProjectBoardContainer />
     </div>
   );
 };
