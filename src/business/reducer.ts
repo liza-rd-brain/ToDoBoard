@@ -13,6 +13,7 @@ export const reducer = (
   action: ActionType
 ): State => {
   const phase = state.phase.type;
+  const view = state.view;
 
   console.log(state);
 
@@ -45,6 +46,21 @@ export const reducer = (
             phase: { type: "creatingProject" },
           };
           return newState;
+        }
+
+        case "createItem": {
+          switch (view) {
+            case "projectBoard": {
+              const newState: State = {
+                ...state,
+                phase: { type: "creatingProject" },
+              };
+              return newState;
+            }
+            default: {
+              return state;
+            }
+          }
         }
 
         default: {

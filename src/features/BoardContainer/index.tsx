@@ -21,18 +21,14 @@ export const BoardContainer = () => {
     });
   };
 
-  const createProject = () => {
-    dispatch({ type: "createProject" });
-  };
-
   return (
     <div className={style.projectList}>
-      <button className={style.button} onClick={createProject}>
+      {/* <button className={style.button} onClick={createProject}>
         +
-      </button>
+      </button> */}
 
-      {projectList ? getProjectList(projectList) : null}
       {boardHasCreatingForm ? <NewProject /> : null}
+      {projectList ? getProjectList(projectList) : null}
       {/* Далее иконки проектов */}
     </div>
   );

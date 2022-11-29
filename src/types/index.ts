@@ -34,6 +34,7 @@ export type ActionType =
   //TODO: set payload type!
   | { type: "loadedData"; payload: any }
   | { type: "createProject" }
+  | { type: "createItem" }
   | { type: "startedSaveProject"; payload: string }
   | { type: "endedSaveProject" };
 

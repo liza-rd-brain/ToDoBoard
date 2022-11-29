@@ -48,7 +48,7 @@ export function useFireBase() {
     switch (doEffect?.type) {
       // automatically pull data when bd update
       case "!loadFireBase": {
-        const currQuery = query(collection(db, path));
+        const currQuery = query(collection(db, path), orderBy("creationDate"));
 
         onSnapshot(currQuery, (querySnapshot) => {
           console.log("querySnapshot", querySnapshot);
@@ -71,7 +71,10 @@ export function useFireBase() {
 
       case "!saveProject": {
         const data = doEffect.data;
-        addDoc(collection(db, path), { projectName: data })
+        addDoc(collection(db, path), {
+          projectName: data,
+          creationDate: Timestamp.now(),
+        })
           .then(() => {
             dispatch({ type: "endedSaveProject" });
           })
