@@ -8,14 +8,11 @@ import { State } from "../../types";
 import { createPortal } from "react-dom";
 import { TaskCard } from "../../component/TaskCard";
 import { useState } from "react";
-import Modal from "../../component/Modal";
+import { Modal } from "../../component/Modal";
 
 export const TaskBoard = () => {
   const { id } = useParams();
   const { phase, view } = useSelector((state: State) => state);
-
-  //для модалки
-  // const [isOpen, setIsOpen] = useState(false);
 
   const getView = () => {
     console.log("view", view);
@@ -24,12 +21,7 @@ export const TaskBoard = () => {
       case "task": {
         return (
           <div className={style.containerWrap} id="taskBoard">
-            <Modal
-              // onClose={() => {
-              //   setIsOpen(false);
-              // }}
-              open={view === "task"}
-            >
+            <Modal isOpen={view === "task"}>
               <TaskCard />
             </Modal>
             <Header /* key={view}  */ />
