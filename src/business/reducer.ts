@@ -189,6 +189,21 @@ export const reducer = (
         }
       }
     }
+    case "creatingTask": {
+      switch (action.type) {
+        case "closeModal": {
+          const newState: State = {
+            ...state,
+            phase: { type: "idle" },
+            view: "taskBoard",
+          };
+          return newState;
+        }
+        default: {
+          return state;
+        }
+      }
+    }
     default: {
       return state;
     }

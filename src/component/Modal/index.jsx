@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
+import { useDispatch } from "react-redux";
 import style from "./index.module.scss";
 
 function Portal({ children, parent, className }) {
@@ -21,8 +22,13 @@ function Portal({ children, parent, className }) {
 
 export default function Modal(props) {
   const [active, setActive] = React.useState(false);
+  const dispatch = useDispatch();
   const { open, onClose, locked } = props;
   const backdrop = React.useRef(null);
+
+  const closeModal = () => {
+    dispatch({ type: "closeModal" });
+  };
 
   useEffect(() => {
     const { current } = backdrop;
@@ -30,9 +36,9 @@ export default function Modal(props) {
     const transitionEnd = () => setActive(open);
 
     const keyHandler = (e) =>
-      !locked && [27].indexOf(e.which) >= 0 && onClose();
+      !locked && [27].indexOf(e.which) >= 0 && closeModal();
 
-    const clickHandler = (e) => !locked && e.target === current && onClose();
+    const clickHandler = (e) => !locked && e.target === current && closeModal();
 
     if (current) {
       current.addEventListener("transitionend", transitionEnd);
@@ -57,7 +63,7 @@ export default function Modal(props) {
       document.querySelector("#root").removeAttribute("inert");
       window.removeEventListener("keyup", keyHandler);
     };
-  }, [open, locked, onClose]);
+  }, [open, locked, closeModal]);
 
   return (
     <React.Fragment>

@@ -41,7 +41,8 @@ export type ActionType =
   | { type: "startedSaveProject"; payload: NewProjectType }
   | { type: "endedSaveProject" }
   | { type: "endedDrag"; payload: any }
-  | { type: "openProject"; payload: ProjectId };
+  | { type: "openProject"; payload: ProjectId }
+  | { type: "closeModal" };
 
 export type TaskItemType = any;
 
