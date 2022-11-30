@@ -3,21 +3,21 @@
 
 
 .columnContainer {
-    margin: 8px;
-    border: 1px solid lightgrey;
-    border-radius: 2px;
-    width: 220px;
-
+    width: 300px;
     display: flex;
     flex-direction: column;
-    
+    margin: 8px;
+    border: 1px solid lightgrey;
+    background-color: $light-gray-color;
+    border-radius: 8px;
+
 }
 
-.titleColumn{
+.titleColumn {
     padding: 8px;
 }
 
-.taskListColumn{
+.taskListColumn {
     padding: 8px;
     transition: background-color 0.2s ease;
     flex-grow: 1;

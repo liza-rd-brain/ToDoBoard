@@ -1,6 +1,7 @@
 import { State } from "../types";
 
 const initialColumn = {
+  //TODO:EXAMPLE
   tasks: {
     taskFirst: { id: "taskFirst", content: "Take out the garbage" },
     taskSecond: { id: "taskSecond", content: "Watch my favorite show" },
@@ -8,24 +9,24 @@ const initialColumn = {
     taskFourth: { id: "taskFourth", content: "Cook dinner" },
   },
   columns: {
-    columnFirst: {
-      id: "columnFirst",
-      title: "To do",
+    queueColumn: {
+      id: "queueColumn",
+      title: "Queue",
       taskIds: ["taskFirst", "taskSecond", "taskThird", "taskFourth"],
     },
-    columnSecond: {
-      id: "columnSecond",
-      title: "In progress",
+    developmentColumn: {
+      id: "developmentColumn",
+      title: "Development",
       taskIds: [],
     },
-    columnThird: {
-      id: "columnThird",
+    doneColumn: {
+      id: "doneColumn",
       title: "Done",
       taskIds: [],
     },
   },
   // Facilitate reordering of the columns
-  columnOrder: ["columnFirst", "columnSecond", "columnThird"],
+  columnOrder: ["queueColumn", "developmentColumn", "doneColumn"],
 };
 
 export const initialState: State = {

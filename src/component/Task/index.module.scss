@@ -4,7 +4,9 @@
 
 .taskContainer{
     border: 1px solid lightgrey;
-    border-radius: 2px;
+    background-color:$white-color;
+    border-radius: 8px;
     padding: 8px;
     margin-bottom: 8px;
+    height: 60px;
 }

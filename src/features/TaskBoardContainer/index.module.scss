@@ -4,5 +4,9 @@
 
 .mainContainer {
     display: flex;
-    cursor: pointer;
+    flex-wrap: wrap;
+    justify-content: center;
+   
+    gap: 30px;
+    padding: 100px;
 }

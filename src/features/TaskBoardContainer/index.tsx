@@ -5,7 +5,6 @@ import { NewProject } from "../../component/NewProject";
 import { ProjectCard } from "../../component/ProjectCard";
 
 import style from "./index.module.scss";
-import { Link } from "react-router-dom";
 import Column from "../../component/Column";
 
 export const TaskBoardContainer = () => {
