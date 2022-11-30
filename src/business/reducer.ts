@@ -109,20 +109,20 @@ export const reducer = (
 
     case "idle": {
       switch (action.type) {
-        case "createProject": {
-          const newState: State = {
-            ...state,
-            phase: { type: "creatingProject" },
-          };
-          return newState;
-        }
-
         case "createItem": {
           switch (view) {
             case "projectBoard": {
               const newState: State = {
                 ...state,
                 phase: { type: "creatingProject" },
+              };
+              return newState;
+            }
+            case "taskBoard": {
+              const newState: State = {
+                ...state,
+                phase: { type: "creatingTask" },
+                view: "task",
               };
               return newState;
             }

@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 
 import { Droppable } from "react-beautiful-dnd";
-import Task from "../Task";
+import { TaskPreview } from "../TaskPreview";
 
 import style from "./index.module.scss"; // import "./index.module.scss";
 
@@ -17,7 +17,7 @@ const Column: FC<{ column: any; tasks: any }> = ({ column, tasks }) => {
             {...provided.droppableProps}
           >
             {tasks.map((task: any, index: any) => (
-              <Task key={task.id} task={task} index={index} />
+              <TaskPreview key={task.id} task={task} index={index} />
             ))}
             {provided.placeholder}
           </div>

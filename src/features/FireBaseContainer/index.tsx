@@ -39,7 +39,15 @@ export const FireBaseContainer = () => {
 
   return (
     <DragDropContext onDragEnd={endedDrag}>
-      <div className={style.container}>{getView()}</div>
+      <div
+        className={
+          view === "task"
+            ? `${style.container} ${style.containerBlur}`
+            : style.container
+        }
+      >
+        {getView()}
+      </div>
     </DragDropContext>
   );
 };

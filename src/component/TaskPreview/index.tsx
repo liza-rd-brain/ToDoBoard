@@ -3,7 +3,7 @@ import { Draggable } from "react-beautiful-dnd";
 
 import style from "./index.module.scss";
 
-const Task: FC<{ task: any; index: any }> = ({ task, index }) => {
+export const TaskPreview: FC<{ task: any; index: any }> = ({ task, index }) => {
   return (
     <Draggable draggableId={task.id} index={index}>
       {(provided, snapshot) => (
@@ -19,5 +19,3 @@ const Task: FC<{ task: any; index: any }> = ({ task, index }) => {
     </Draggable>
   );
 };
-
-export default Task;
