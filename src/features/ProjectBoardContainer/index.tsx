@@ -7,6 +7,8 @@ import { ProjectCard } from "../../component/ProjectCard";
 import style from "./index.module.scss";
 import { Link } from "react-router-dom";
 
+import { useParams } from "react-router-dom";
+
 export const ProjectBoardContainer = () => {
   const { phase, data } = useSelector((state: State) => state);
 

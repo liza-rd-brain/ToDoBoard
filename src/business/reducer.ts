@@ -90,11 +90,14 @@ export const reducer = (
     case "waitingDB": {
       switch (action.type) {
         case "loadedData": {
-          console.log("loadedData", action.payload);
+          // console.log("loadedData", action.payload);
 
+          //TODO: получить view из query
+          //TODO: view -не задаю кроме прелоадера!
           const newState: State = {
             ...state,
-            view: "projectBoard",
+            view: null,
+            // view: "projectBoard",
             phase: { type: "idle" },
             doEffect: null,
             data: action.payload,
@@ -109,27 +112,21 @@ export const reducer = (
 
     case "idle": {
       switch (action.type) {
-        case "createItem": {
-          switch (view) {
-            case "projectBoard": {
-              const newState: State = {
-                ...state,
-                phase: { type: "creatingProject" },
-              };
-              return newState;
-            }
-            case "taskBoard": {
-              const newState: State = {
-                ...state,
-                phase: { type: "creatingTask" },
-                view: "task",
-              };
-              return newState;
-            }
-            default: {
-              return state;
-            }
-          }
+        case "createProject": {
+          const newState: State = {
+            ...state,
+            phase: { type: "creatingProject" },
+          };
+          return newState;
+        }
+
+        case "createTask": {
+          const newState: State = {
+            ...state,
+            phase: { type: "creatingTask" },
+            view: "task",
+          };
+          return newState;
         }
 
         case "openProject": {
@@ -142,12 +139,12 @@ export const reducer = (
         }
 
         case "endedDrag": {
-          console.log("ended drag");
-          console.log(action.payload);
+          // console.log("ended drag");
+          // console.log(action.payload);
 
           const newColumn = checkResult(action.payload, state);
 
-          console.log("newColumn", newColumn);
+          // console.log("newColumn", newColumn);
           return newColumn;
         }
 

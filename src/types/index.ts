@@ -17,7 +17,16 @@ export type ProjectItemType = {
   taskList: TaskItemType;
 };
 
-export type ViewType = "preloader" | "projectBoard" | "taskBoard" | "task";
+export type ViewType = ViewTypeList | null;
+
+export const ViewList = [
+  "preloader",
+  "projectBoard",
+  "taskBoard",
+  "task",
+] as const;
+
+export type ViewTypeList = typeof ViewList[number];
 
 //TODO: crud for project & task& etc.
 export type PhaseType =
@@ -37,7 +46,8 @@ export type ActionType =
   | { type: "loadedData"; payload: any }
   | { type: "createProject" }
   | { type: "revertNewProject" }
-  | { type: "createItem" }
+  | { type: "createProject" }
+  | { type: "createTask" }
   | { type: "startedSaveProject"; payload: NewProjectType }
   | { type: "endedSaveProject" }
   | { type: "endedDrag"; payload: any }
@@ -47,3 +57,5 @@ export type ActionType =
 export type TaskItemType = any;
 
 export type NewProjectType = { name: string; date: number };
+
+export type HeaderType = "task" | "project";

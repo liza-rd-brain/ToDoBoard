@@ -3,11 +3,14 @@ import { useDispatch } from "react-redux";
 import { ProjectId } from "../../types";
 import style from "./index.module.scss";
 
+import { useParams } from "react-router-dom";
+
 export const ProjectCard: FC<{ name: string; id: ProjectId }> = ({
   name,
   id,
 }) => {
   const dispatch = useDispatch();
+  debugger;
 
   const openProject = () => {
     dispatch({ type: "openProject", payload: id });

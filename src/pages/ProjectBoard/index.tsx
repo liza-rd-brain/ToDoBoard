@@ -10,7 +10,7 @@ export const ProjectBoard = () => {
 
   return (
     <div className={style.container}>
-      <Header />
+      <Header type="project" />
       <ProjectBoardContainer />
     </div>
   );

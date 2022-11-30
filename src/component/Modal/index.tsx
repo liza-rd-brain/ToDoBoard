@@ -1,6 +1,7 @@
 import React, { FC, ReactNode, useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import style from "./index.module.scss";
 
 const Portal: FC<{ children: ReactNode; className: string }> = ({
@@ -30,10 +31,13 @@ export const Modal: FC<{ isOpen: boolean; children: ReactNode }> = ({
   const [active, setActive] = useState(false);
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   const backdropRef = useRef<HTMLInputElement>(null);
 
   const closeModal = () => {
-    dispatch({ type: "closeModal" });
+    navigate(-1);
+    /*     dispatch({ type: "closeModal" }); */
   };
 
   useEffect(() => {

@@ -1,6 +1,7 @@
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import { Preloader } from "../../component/Preloader";
 import { useFireBase } from "../../effect";
@@ -23,8 +24,10 @@ export const FireBaseContainer = () => {
       default: {
         return (
           <Routes>
-            <Route path="/" element={<ProjectBoard />} />
-            <Route path="/project/:id" element={<TaskBoard />} />
+            <Route path="/*" element={<ProjectBoard />} />
+            <Route path="/project/:id/*" element={<TaskBoard />} />
+            <Route path="/task:id" element={<TaskBoard />} />
+            <Route path="/task/new" element={<TaskBoard />} />
           </Routes>
         );
       }

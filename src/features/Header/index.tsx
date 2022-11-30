@@ -1,24 +1,60 @@
 import { useDispatch, useSelector } from "react-redux";
-import { State } from "../../types";
+import { HeaderType, State, ViewList } from "../../types";
 import style from "./index.module.scss";
 
-export const Header = () => {
+import { useNavigate, useLocation, Link, useMatches } from "react-router-dom";
+import { FC } from "react";
+
+export const Header: FC<{ type: HeaderType }> = ({ type: headerType }) => {
   const dispatch = useDispatch();
   const { view } = useSelector((state: State) => state);
+  const navigate = useNavigate();
 
-  const createProject = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const newTaskKey = "new";
+
+  const createItem = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
-    dispatch({ type: "createItem" });
+    switch (headerType) {
+      case "project": {
+        dispatch({ type: "createProject" });
+        break;
+      }
+      case "task": {
+        dispatch({ type: "createTask" });
+        break;
+      }
+      default: {
+        break;
+      }
+    }
   };
 
   return (
-    <header className={style.header} /*  key={view} */>
-      <div className={style.logo}></div>
-      <button className={style.button} onClick={createProject}>
-        +
-      </button>
+    <header className={style.header}>
+      <Link to="/">
+        <div className={style.logo}></div>
+      </Link>
+
+      {headerType === "task" ? (
+        // <Link
+        //   key={"new"}
+        //   // to={`${match.url}/edit`}
+        //   to={`/task/${"new"}`}
+        // >
+        <button
+          className={style.button}
+          onClick={() => {
+            navigate(`/task/${newTaskKey}`);
+          }} /* onClick={createItem} */
+        >
+          +
+        </button>
+      ) : (
+        // </Link>
+        <button className={style.button} onClick={createItem}>
+          +
+        </button>
+      )}
     </header>
   );
 };

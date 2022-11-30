@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import { Droppable } from "react-beautiful-dnd";
 import { TaskPreview } from "../TaskPreview";
 
-import style from "./index.module.scss"; // import "./index.module.scss";
+import style from "./index.module.scss";
 
 const Column: FC<{ column: any; tasks: any }> = ({ column, tasks }) => {
   return (

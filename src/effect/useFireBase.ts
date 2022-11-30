@@ -60,7 +60,7 @@ export function useFireBase() {
               } as LoadedDataType)
           );
 
-          console.log("projectList", projectList);
+          // console.log("projectList", projectList);
           const stateDataObject = getStateObject(projectList);
 
           dispatch({ type: "loadedData", payload: stateDataObject });
