@@ -8,6 +8,75 @@ export const useAppDispatch = () => {
   return appDispatch;
 };
 
+const checkResult = (result: any, state: State): State => {
+  const { destination, source, draggableId } = result;
+  const { column } = state;
+
+  if (!destination) {
+    return state;
+  }
+
+  if (
+    destination.droppableId === source.droppableId &&
+    destination.index === source.index
+  ) {
+    return state;
+  }
+
+  const start = column.columns[source.droppableId];
+  const finish = column.columns[destination.droppableId];
+
+  if (start === finish) {
+    const newTaskIds = Array.from(start.taskIds);
+    newTaskIds.splice(source.index, 1);
+    newTaskIds.splice(destination.index, 0, draggableId);
+
+    const newColumn = {
+      ...start,
+      taskIds: newTaskIds,
+    };
+
+    const newState = {
+      ...state.column,
+      columns: {
+        ...column.columns,
+        [newColumn.id]: newColumn,
+      },
+    };
+
+    return newState;
+  } else {
+    // Moving from one list to another
+    const startTaskIds = Array.from(start.taskIds);
+    startTaskIds.splice(source.index, 1);
+    const newStart = {
+      ...start,
+      taskIds: startTaskIds,
+    };
+
+    const finishTaskIds = Array.from(finish.taskIds);
+    finishTaskIds.splice(destination.index, 0, draggableId);
+    const newFinish = {
+      ...finish,
+      taskIds: finishTaskIds,
+    };
+
+    const newState = {
+      ...state,
+      column: {
+        ...state.column,
+        columns: {
+          ...state.column.columns,
+          [newStart.id]: newStart,
+          [newFinish.id]: newFinish,
+        },
+      },
+    };
+
+    return newState;
+  }
+};
+
 export const reducer = (
   state: State = initialState,
   action: ActionType
@@ -70,6 +139,16 @@ export const reducer = (
             // currProjectId: action.payload,
           };
           return newState;
+        }
+
+        case "endedDrag": {
+          console.log("ended drag");
+          console.log(action.payload);
+
+          const newColumn = checkResult(action.payload, state);
+
+          console.log("newColumn", newColumn);
+          return newColumn;
         }
 
         default: {

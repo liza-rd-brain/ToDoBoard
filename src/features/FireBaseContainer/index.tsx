@@ -1,4 +1,5 @@
-import { useSelector } from "react-redux";
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 
 import { Preloader } from "../../component/Preloader";
@@ -11,6 +12,7 @@ import style from "./index.module.scss";
 
 export const FireBaseContainer = () => {
   const { view } = useSelector((state: State) => state);
+  const dispatch = useDispatch();
 
   const getView = () => {
     switch (view) {
@@ -29,7 +31,15 @@ export const FireBaseContainer = () => {
     }
   };
 
+  const endedDrag = (result: DropResult) => {
+    dispatch({ type: "endedDrag", payload: result });
+  };
+
   useFireBase();
 
-  return <div className={style.container}>{getView()}</div>;
+  return (
+    <DragDropContext onDragEnd={endedDrag}>
+      <div className={style.container}>{getView()}</div>
+    </DragDropContext>
+  );
 };

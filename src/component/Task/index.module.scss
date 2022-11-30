@@ -1,0 +1,10 @@
+@import "../../style//mixin.scss";
+@import "../../style/variables.scss";
+
+
+.taskContainer{
+    border: 1px solid lightgrey;
+    border-radius: 2px;
+    padding: 8px;
+    margin-bottom: 8px;
+}

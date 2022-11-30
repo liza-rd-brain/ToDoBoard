@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 
 import style from "./index.module.scss";
 import { Header } from "../../features/Header";
+import { TaskBoardContainer } from "../../features/TaskBoardContainer";
 
 export const TaskBoard = () => {
   const { id } = useParams();
@@ -10,8 +11,7 @@ export const TaskBoard = () => {
   return (
     <div className={style.container}>
       <Header />
-      <div>здесь будут задачи</div>
-      {/* <BoardContainer /> */}
+      <TaskBoardContainer />
     </div>
   );
 };
