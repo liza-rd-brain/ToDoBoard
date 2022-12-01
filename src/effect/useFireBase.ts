@@ -4,8 +4,6 @@ import {
   query,
   onSnapshot,
   addDoc,
-  doc,
-  getDoc,
   /*   doc,
   updateDoc,
   deleteDoc,
@@ -29,6 +27,20 @@ export type ProjectListType = Array<LoadedDataType>;
 
 export type LoadedDataType = { id: ProjectId; value: LoadedValueType };
 
+const getStateObject = (array: ProjectListType): StateDataType => {
+  return array.reduce((result: StateDataType, projectItem: LoadedDataType) => {
+    return {
+      ...result,
+      [projectItem.id]: {
+        id: projectItem.id,
+        name: projectItem.value.projectData.name,
+        creationTimeStamp: projectItem.value.projectData.date,
+        taskList: null,
+      },
+    };
+  }, {});
+};
+
 export function useFireBase() {
   const dispatch = useAppDispatch();
   const [doEffect] = useSelector((state: State) => [state.doEffect]);
@@ -39,15 +51,6 @@ export function useFireBase() {
       case "!loadFireBase": {
         const currQuery = query(collection(db, path));
 
-        const docRef = doc(
-          db,
-          path,
-          "CYy2z07e6doZJTKq8Jdi",
-          "list",
-          "mgEdBgFQQNbvEP7xkcCG"
-        );
-        getDoc(docRef).then((res) => console.log("res", res.data()));
-
         onSnapshot(currQuery, (querySnapshot) => {
           const projectList = querySnapshot.docs.map(
             (doc) =>
@@ -57,8 +60,7 @@ export function useFireBase() {
               } as LoadedDataType)
           );
 
-          /*   console.log("projectList", projectList);
-          const stateDataObject = getStateObject(projectList); */
+          console.log("projectList", projectList);
 
           dispatch({ type: "loadedData", payload: projectList });
         });
@@ -67,11 +69,10 @@ export function useFireBase() {
       }
 
       case "!saveProject": {
-        // const data = doEffect.data;
-
-        const testData = "testData";
-        addDoc(collection(db, path, "CYy2z07e6doZJTKq8Jdi", "list"), {
-          testData,
+        const data = doEffect.data;
+        addDoc(collection(db, path), {
+          projectData: data,
+          /*   creationDate: Timestamp.now(), */
         })
           .then(() => {
             dispatch({ type: "endedSaveProject" });
