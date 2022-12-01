@@ -27,20 +27,6 @@ export type ProjectListType = Array<LoadedDataType>;
 
 export type LoadedDataType = { id: ProjectId; value: LoadedValueType };
 
-const getStateObject = (array: ProjectListType): StateDataType => {
-  return array.reduce((result: StateDataType, projectItem: LoadedDataType) => {
-    return {
-      ...result,
-      [projectItem.id]: {
-        id: projectItem.id,
-        name: projectItem.value.projectData.name,
-        creationTimeStamp: projectItem.value.projectData.date,
-        taskList: null,
-      },
-    };
-  }, {});
-};
-
 export function useFireBase() {
   const dispatch = useAppDispatch();
   const [doEffect] = useSelector((state: State) => [state.doEffect]);
@@ -71,6 +57,22 @@ export function useFireBase() {
       case "!saveProject": {
         const data = doEffect.data;
         addDoc(collection(db, path), {
+          projectData: data,
+          /*   creationDate: Timestamp.now(), */
+        })
+          .then(() => {
+            dispatch({ type: "endedSaveProject" });
+          })
+          .catch(() => console.error("error"));
+
+        break;
+      }
+
+      case "!saveTask": {
+        const data = {
+          projectID: "test123",
+        };
+        addDoc(collection(db, path, data.projectID, "taskList"), {
           projectData: data,
           /*   creationDate: Timestamp.now(), */
         })

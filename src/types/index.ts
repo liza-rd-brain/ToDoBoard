@@ -60,6 +60,7 @@ export type PhaseType =
 export type EffectType =
   | { type: "!loadFireBase" }
   | { type: "!saveProject"; data: NewProjectType }
+  | { type: "!saveTask" }
   | null;
 
 export type ActionType =

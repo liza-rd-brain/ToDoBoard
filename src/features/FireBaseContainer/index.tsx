@@ -24,10 +24,11 @@ export const FireBaseContainer = () => {
       default: {
         return (
           <Routes>
-            <Route path="/*" element={<ProjectBoard />} />
-            <Route path="/project/:id/*" element={<TaskBoard />} />
-            <Route path="/task:id" element={<TaskBoard />} />
-            <Route path="/task/new" element={<TaskBoard />} />
+            <Route path="/" element={<ProjectBoard />} />
+            <Route path="/project/:id/" element={<TaskBoard />}>
+              <Route path="task:id" element={<TaskBoard />} />
+              <Route path="task/new" element={<TaskBoard />} />
+            </Route>
           </Routes>
         );
       }
