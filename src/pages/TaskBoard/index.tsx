@@ -16,9 +16,9 @@ export const TaskBoard = () => {
 
   const modalOpen = pathname.includes("task");
 
-  console.log("currTaskId,", id);
+  // console.log("currTaskId,", id);
 
-  console.log("modalOpen", modalOpen, pathname);
+  // console.log("modalOpen", modalOpen, pathname);
 
   return (
     <div className={style.container}>

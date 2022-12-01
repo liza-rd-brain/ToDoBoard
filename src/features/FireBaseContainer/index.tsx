@@ -1,6 +1,6 @@
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import { Preloader } from "../../component/Preloader";
@@ -14,6 +14,8 @@ import style from "./index.module.scss";
 export const FireBaseContainer = () => {
   const { view } = useSelector((state: State) => state);
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
+  const { id: currQuery } = useParams();
 
   const getView = () => {
     switch (view) {
@@ -39,7 +41,7 @@ export const FireBaseContainer = () => {
     dispatch({ type: "endedDrag", payload: result });
   };
 
-  useFireBase();
+  useFireBase(pathname, currQuery);
 
   return (
     <DragDropContext onDragEnd={endedDrag}>

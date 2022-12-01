@@ -15,8 +15,6 @@ export const TaskCard = () => {
 
   const currProjectID = useParams();
 
-  console.log("params", currProjectID);
-
   const saveTask = (e: FormEvent) => {
     debugger;
     e.preventDefault();

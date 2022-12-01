@@ -27,11 +27,56 @@ export type ProjectListType = Array<LoadedDataType>;
 
 export type LoadedDataType = { id: ProjectId; value: LoadedValueType };
 
-export function useFireBase() {
+const calculateTypeRequest = (pathname: string) => {
+  const pathArray = pathname.split("/");
+  const tableType = pathArray.at(-2);
+  const query = pathArray.at(-1);
+  switch (tableType) {
+    case "project": {
+      if (query) {
+        return { type: "project", index: query };
+      }
+      break;
+    }
+    default: {
+      return null;
+    }
+    /*  case "task":{
+
+    } */
+  }
+};
+
+export function useFireBase(pathname: string, currQuery: string | undefined) {
   const dispatch = useAppDispatch();
   const [doEffect] = useSelector((state: State) => [state.doEffect]);
 
+  console.log("pathname from effect", pathname);
+
+  const requestType = calculateTypeRequest(pathname);
+
+  const needGetTask = pathname.includes("project");
+
   useEffect(() => {
+    //Вытаскиваем таски, только если мы зашли в проект
+    if (requestType) {
+      const currQuery = query(
+        collection(db, path, requestType.index, "taskList")
+      );
+
+      onSnapshot(currQuery, (querySnapshot) => {
+        const taskList = querySnapshot.docs.map(
+          (doc) =>
+            ({
+              id: doc.id,
+              value: doc.data(),
+            } as LoadedDataType)
+        );
+
+        console.log("taskLIst", taskList);
+      });
+    }
+
     switch (doEffect?.type) {
       // automatically pull data when bd update
       case "!loadFireBase": {
@@ -45,8 +90,6 @@ export function useFireBase() {
                 value: doc.data(),
               } as LoadedDataType)
           );
-
-          console.log("projectList", projectList);
 
           dispatch({ type: "loadedData", payload: projectList });
         });
@@ -87,12 +130,10 @@ export function useFireBase() {
       case "!createTask": {
         const { projectId, taskItem } = doEffect.data;
 
-        console.log(projectId, taskItem);
         addDoc(collection(db, path, projectId, "taskList"), {
           taskData: taskItem,
         })
           .then(() => {
-            console.log("added task");
             dispatch({ type: "endedCreateTask" });
           })
           .catch(() => console.error("error"));
@@ -104,5 +145,5 @@ export function useFireBase() {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [doEffect]);
+  }, [doEffect, pathname, requestType]);
 }
