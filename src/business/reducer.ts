@@ -1,80 +1,13 @@
 import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
-import { ActionType, State } from "../types";
+import { ActionType, ColumnType, State, StateDataType } from "../types";
 import { initialState } from "./initialState";
+import { getStateObject } from "./helpers/getStateObject";
+import { getColumnAfterDrag } from "./helpers/getColumnAfterDrag";
 
 export const useAppDispatch = () => {
   const appDispatch = useDispatch<Dispatch<ActionType>>();
   return appDispatch;
-};
-
-const checkResult = (result: any, state: State): State => {
-  const { destination, source, draggableId } = result;
-  const { column } = state;
-
-  if (!destination) {
-    return state;
-  }
-
-  if (
-    destination.droppableId === source.droppableId &&
-    destination.index === source.index
-  ) {
-    return state;
-  }
-
-  const start = column.columns[source.droppableId];
-  const finish = column.columns[destination.droppableId];
-
-  if (start === finish) {
-    const newTaskIds = Array.from(start.taskIds);
-    newTaskIds.splice(source.index, 1);
-    newTaskIds.splice(destination.index, 0, draggableId);
-
-    const newColumn = {
-      ...start,
-      taskIds: newTaskIds,
-    };
-
-    const newState = {
-      ...state.column,
-      columns: {
-        ...column.columns,
-        [newColumn.id]: newColumn,
-      },
-    };
-
-    return newState;
-  } else {
-    // Moving from one list to another
-    const startTaskIds = Array.from(start.taskIds);
-    startTaskIds.splice(source.index, 1);
-    const newStart = {
-      ...start,
-      taskIds: startTaskIds,
-    };
-
-    const finishTaskIds = Array.from(finish.taskIds);
-    finishTaskIds.splice(destination.index, 0, draggableId);
-    const newFinish = {
-      ...finish,
-      taskIds: finishTaskIds,
-    };
-
-    const newState = {
-      ...state,
-      column: {
-        ...state.column,
-        columns: {
-          ...state.column.columns,
-          [newStart.id]: newStart,
-          [newFinish.id]: newFinish,
-        },
-      },
-    };
-
-    return newState;
-  }
 };
 
 export const reducer = (
@@ -82,7 +15,6 @@ export const reducer = (
   action: ActionType
 ): State => {
   const phase = state.phase.type;
-  const view = state.view;
 
   console.log(state);
 
@@ -90,6 +22,7 @@ export const reducer = (
     case "waitingDB": {
       switch (action.type) {
         case "loadedData": {
+          const newProjectList = getStateObject(action.payload);
           // console.log("loadedData", action.payload);
 
           //TODO: получить view из query
@@ -100,7 +33,7 @@ export const reducer = (
             // view: "projectBoard",
             phase: { type: "idle" },
             doEffect: null,
-            data: action.payload,
+            projectList: newProjectList,
           };
           return newState;
         }
@@ -142,10 +75,14 @@ export const reducer = (
           // console.log("ended drag");
           // console.log(action.payload);
 
-          const newColumn = checkResult(action.payload, state);
+          const newColumn = getColumnAfterDrag(action.payload, state.column);
 
-          // console.log("newColumn", newColumn);
-          return newColumn;
+          const newState = {
+            ...state,
+            column: newColumn,
+          };
+
+          return newState;
         }
 
         default: {

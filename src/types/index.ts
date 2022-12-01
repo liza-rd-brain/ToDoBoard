@@ -2,8 +2,29 @@ export type State = {
   view: ViewType;
   phase: PhaseType;
   doEffect: EffectType;
-  data: StateDataType | null;
-  column: any;
+  projectList: StateDataType | null;
+  column: ColumnType;
+};
+
+export type ColumnType = {
+  tasks: TaskTypeTest;
+  columns: ColumnsTypeTest;
+  columnOrder: Array<string>;
+};
+
+export type TaskTypeTest = Record<string, TaskItemTypeTest>;
+
+export type TaskItemTypeTest = {
+  id: string;
+  content: string;
+};
+
+export type ColumnsTypeTest = Record<string, ColumnItemTypeTest>;
+
+export type ColumnItemTypeTest = {
+  id: string;
+  title: string;
+  taskIds: Array<string>;
 };
 
 export type StateDataType = Record<ProjectId, ProjectItemType>;

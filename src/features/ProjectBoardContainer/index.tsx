@@ -10,12 +10,13 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 export const ProjectBoardContainer = () => {
-  const { phase, data } = useSelector((state: State) => state);
+  const { phase, projectList } = useSelector((state: State) => state);
 
   const boardHasCreatingForm = phase.type === "creatingProject";
 
-  const projectList =
-    data && Object.values(data); /* && Object.keys(data).length; */
+  const projectItemList =
+    projectList &&
+    Object.values(projectList); /* && Object.keys(data).length; */
 
   const getProjectList = (dataList: ProjectItemType[]) => {
     /**
@@ -41,7 +42,7 @@ export const ProjectBoardContainer = () => {
   return (
     <div className={style.projectList}>
       {boardHasCreatingForm ? <NewProject /> : null}
-      {projectList ? getProjectList(projectList) : null}
+      {projectItemList ? getProjectList(projectItemList) : null}
     </div>
   );
 };

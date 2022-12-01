@@ -1,0 +1,23 @@
+//Пример  с вложенной коллекцией
+
+const testData = {
+    task1: "some name",
+  };
+
+  addDoc(collection(db, path, "roomA", "messages"), {
+    projectData: testData,
+  });
+
+
+
+
+//Можно получить только документы, нельзя коллекции
+        const docRef = doc(
+          db,
+          path,
+          "CYy2z07e6doZJTKq8Jdi",
+          "list",
+          "mgEdBgFQQNbvEP7xkcCG"
+        );
+        getDoc(docRef).then((res) => console.log("res", res.data()));
+

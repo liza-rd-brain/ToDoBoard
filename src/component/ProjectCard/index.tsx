@@ -10,7 +10,6 @@ export const ProjectCard: FC<{ name: string; id: ProjectId }> = ({
   id,
 }) => {
   const dispatch = useDispatch();
-  debugger;
 
   const openProject = () => {
     dispatch({ type: "openProject", payload: id });

@@ -8,7 +8,7 @@ import style from "./index.module.scss";
 import Column from "../../component/Column";
 
 export const TaskBoardContainer = () => {
-  const { phase, data, column } = useSelector((state: State) => state);
+  const { phase, projectList, column } = useSelector((state: State) => state);
 
   return (
     <div className={style.mainContainer}>

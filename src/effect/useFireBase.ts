@@ -4,6 +4,8 @@ import {
   query,
   onSnapshot,
   addDoc,
+  doc,
+  getDoc,
   /*   doc,
   updateDoc,
   deleteDoc,
@@ -22,24 +24,10 @@ import { NewProjectType, ProjectId, State, StateDataType } from "../types";
  * hook for interaction with firebase
  */
 
-type LoadedValueType = { projectData: NewProjectType };
-type ProjectListType = Array<LoadedDataType>;
+export type LoadedValueType = { projectData: NewProjectType };
+export type ProjectListType = Array<LoadedDataType>;
 
-type LoadedDataType = { id: ProjectId; value: LoadedValueType };
-
-const getStateObject = (array: ProjectListType): StateDataType => {
-  return array.reduce((result: StateDataType, projectItem: LoadedDataType) => {
-    return {
-      ...result,
-      [projectItem.id]: {
-        id: projectItem.id,
-        name: projectItem.value.projectData.name,
-        creationTimeStamp: projectItem.value.projectData.date,
-        taskList: null,
-      },
-    };
-  }, {});
-};
+export type LoadedDataType = { id: ProjectId; value: LoadedValueType };
 
 export function useFireBase() {
   const dispatch = useAppDispatch();
@@ -51,6 +39,15 @@ export function useFireBase() {
       case "!loadFireBase": {
         const currQuery = query(collection(db, path));
 
+        const docRef = doc(
+          db,
+          path,
+          "CYy2z07e6doZJTKq8Jdi",
+          "list",
+          "mgEdBgFQQNbvEP7xkcCG"
+        );
+        getDoc(docRef).then((res) => console.log("res", res.data()));
+
         onSnapshot(currQuery, (querySnapshot) => {
           const projectList = querySnapshot.docs.map(
             (doc) =>
@@ -60,20 +57,21 @@ export function useFireBase() {
               } as LoadedDataType)
           );
 
-          // console.log("projectList", projectList);
-          const stateDataObject = getStateObject(projectList);
+          /*   console.log("projectList", projectList);
+          const stateDataObject = getStateObject(projectList); */
 
-          dispatch({ type: "loadedData", payload: stateDataObject });
+          dispatch({ type: "loadedData", payload: projectList });
         });
 
         break;
       }
 
       case "!saveProject": {
-        const data = doEffect.data;
-        addDoc(collection(db, path), {
-          projectData: data,
-          /*   creationDate: Timestamp.now(), */
+        // const data = doEffect.data;
+
+        const testData = "testData";
+        addDoc(collection(db, path, "CYy2z07e6doZJTKq8Jdi", "list"), {
+          testData,
         })
           .then(() => {
             dispatch({ type: "endedSaveProject" });

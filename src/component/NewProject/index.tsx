@@ -17,7 +17,10 @@ export const NewProject = () => {
     // console.log("currDate", currDate);
     dispatch({
       type: "startedSaveProject",
-      payload: { name: textInput.current?.value, date: currDate },
+      payload: {
+        name: textInput.current?.value,
+        date: currDate,
+      },
     });
   };
 
