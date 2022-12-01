@@ -58,7 +58,6 @@ export function useFireBase() {
         const data = doEffect.data;
         addDoc(collection(db, path), {
           projectData: data,
-          /*   creationDate: Timestamp.now(), */
         })
           .then(() => {
             dispatch({ type: "endedSaveProject" });
@@ -68,6 +67,7 @@ export function useFireBase() {
         break;
       }
 
+      //тестовый кейс, пример
       case "!saveTask": {
         const data = {
           projectID: "test123",
@@ -82,6 +82,21 @@ export function useFireBase() {
           .catch(() => console.error("error"));
 
         break;
+      }
+
+      case "!createTask": {
+        const { projectId, taskItem } = doEffect.data;
+
+        console.log(projectId, taskItem);
+        addDoc(collection(db, path, projectId, "taskList"), {
+          taskData: taskItem,
+        })
+          .then(() => {
+            console.log("added task");
+            dispatch({ type: "endedCreateTask" });
+          })
+          .catch(() => console.error("error"));
+        break; /*  */
       }
 
       default: {

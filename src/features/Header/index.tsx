@@ -15,11 +15,10 @@ import { FC } from "react";
 export const Header: FC<{ type: HeaderType }> = ({ type: headerType }) => {
   // const routes = [{ path: "/project" }];
   const location = useLocation();
-  console.log(location.pathname);
-
   const currentPath = location.pathname;
+  // console.log(location.pathname);
 
-  console.log("currentPath", currentPath);
+  // console.log("currentPath", currentPath);
 
   const dispatch = useDispatch();
   const { view } = useSelector((state: State) => state);
@@ -54,6 +53,7 @@ export const Header: FC<{ type: HeaderType }> = ({ type: headerType }) => {
         <Link key={"new"} to={`task/${"new"}`}>
           <button
             className={style.button}
+            // onClick={createItem}
             // onClick={() => {
             //   navigate(`/task/${newTaskKey}`, {
             //     replace: true,

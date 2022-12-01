@@ -61,6 +61,7 @@ export type EffectType =
   | { type: "!loadFireBase" }
   | { type: "!saveProject"; data: NewProjectType }
   | { type: "!saveTask" }
+  | { type: "!createTask"; data: TaskPayloadType }
   | null;
 
 export type ActionType =
@@ -74,7 +75,16 @@ export type ActionType =
   | { type: "endedSaveProject" }
   | { type: "endedDrag"; payload: any }
   | { type: "openProject"; payload: ProjectId }
-  | { type: "closeModal" };
+  | { type: "closeModal" }
+  | { type: "endedCreateTask" }
+  | { type: "startedSaveTask"; payload: TaskPayloadType };
+
+export type TaskPayloadType = {
+  projectId: string;
+  taskItem: {
+    name: string;
+  };
+};
 
 export type TaskItemType = any;
 

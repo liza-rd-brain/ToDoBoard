@@ -85,6 +85,25 @@ export const reducer = (
           return newState;
         }
 
+        case "startedSaveTask": {
+          const newState: State = {
+            ...state,
+            doEffect: {
+              type: "!createTask",
+              data: action.payload,
+            },
+          };
+          return newState;
+        }
+
+        case "endedCreateTask": {
+          const newState: State = {
+            ...state,
+            doEffect: { type: "!loadFireBase" },
+          };
+          return newState;
+        }
+
         default: {
           return state;
         }
@@ -123,6 +142,7 @@ export const reducer = (
         }
       }
     }
+
     case "creatingTask": {
       switch (action.type) {
         case "closeModal": {
@@ -130,6 +150,17 @@ export const reducer = (
             ...state,
             phase: { type: "idle" },
             view: "taskBoard",
+          };
+          return newState;
+        }
+
+        case "startedSaveTask": {
+          const newState: State = {
+            ...state,
+            doEffect: {
+              type: "!createTask",
+              data: action.payload,
+            },
           };
           return newState;
         }
