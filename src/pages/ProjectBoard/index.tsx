@@ -5,6 +5,7 @@ import style from "./index.module.scss";
 import { useSelector } from "react-redux";
 import { State } from "../../types";
 import { Preloader } from "../../component/Preloader";
+import { useFireBase, useLoadFireBase } from "../../effect";
 
 export const ProjectBoard = () => {
   const { view } = useSelector((state: State) => state);
@@ -27,6 +28,8 @@ export const ProjectBoard = () => {
       }
     }
   };
+
+  useLoadFireBase();
 
   return (
     <div className={style.container}>

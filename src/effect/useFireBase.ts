@@ -47,7 +47,7 @@ const calculateTypeRequest = (pathname: string) => {
   }
 };
 
-export function useFireBase(currQuery: string | undefined) {
+export function useFireBase() {
   const dispatch = useAppDispatch();
   const [doEffect] = useSelector((state: State) => [state.doEffect]);
 

@@ -1,17 +1,12 @@
 import { Provider } from "react-redux";
 
 import { store } from "./business/store";
-
 import "./App.css";
 
 import { AppContainer } from "./AppContainer";
 import { RouterComponent } from "./component/RouterComponent";
 
-// const router = createBrowserRouter(
-//   createRoutesFromElements(<Route path="/" element={<Main />}></Route>)
-// );
-
-const App = () => {
+export const App = () => {
   return (
     <Provider store={store}>
       <div className="app">
@@ -22,5 +17,3 @@ const App = () => {
     </Provider>
   );
 };
-
-export default App;
