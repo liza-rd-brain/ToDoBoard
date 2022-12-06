@@ -4,8 +4,8 @@ import { store } from "./business/store";
 
 import "./App.css";
 
-import { BrowserRouter } from "react-router-dom";
-import { FireBaseContainer } from "./features/FireBaseContainer";
+import { AppContainer } from "./AppContainer";
+import { RouterComponent } from "./component/RouterComponent";
 
 // const router = createBrowserRouter(
 //   createRoutesFromElements(<Route path="/" element={<Main />}></Route>)
@@ -14,11 +14,11 @@ import { FireBaseContainer } from "./features/FireBaseContainer";
 const App = () => {
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <div className="app">
-          <FireBaseContainer />
-        </div>
-      </BrowserRouter>
+      <div className="app">
+        <AppContainer>
+          <RouterComponent />
+        </AppContainer>
+      </div>
     </Provider>
   );
 };

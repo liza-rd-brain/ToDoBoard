@@ -47,19 +47,19 @@ const calculateTypeRequest = (pathname: string) => {
   }
 };
 
-export function useFireBase(pathname: string, currQuery: string | undefined) {
+export function useFireBase(currQuery: string | undefined) {
   const dispatch = useAppDispatch();
   const [doEffect] = useSelector((state: State) => [state.doEffect]);
 
-  console.log("pathname from effect", pathname);
+  // console.log("pathname from effect", pathname);
 
-  const requestType = calculateTypeRequest(pathname);
+  // const requestType = calculateTypeRequest(pathname);
 
-  const needGetTask = pathname.includes("project");
+  // const needGetTask = pathname.includes("project");
 
   useEffect(() => {
     //Вытаскиваем таски, только если мы зашли в проект
-    if (requestType) {
+    /*     if (requestType) {
       const currQuery = query(
         collection(db, path, requestType.index, "taskList")
       );
@@ -75,7 +75,7 @@ export function useFireBase(pathname: string, currQuery: string | undefined) {
 
         console.log("taskLIst", taskList);
       });
-    }
+    } */
 
     switch (doEffect?.type) {
       // automatically pull data when bd update
@@ -145,5 +145,5 @@ export function useFireBase(pathname: string, currQuery: string | undefined) {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [doEffect, pathname, requestType]);
+  }, [doEffect /* requestType */]);
 }
