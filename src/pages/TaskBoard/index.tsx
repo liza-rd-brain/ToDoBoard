@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, Outlet } from "react-router-dom";
 
 import style from "./index.module.scss";
 import { ViewTypeList } from "../../types";
@@ -24,13 +24,36 @@ export const TaskBoard = ({ viewType }: { viewType: ViewTypeList }) => {
 
   useLoadFireBase({ viewType: viewType, id: currId });
 
-  return (
-    <div className={style.container}>
-      <Modal isOpen={Boolean(modalOpen)}>
-        <TaskCard />
-      </Modal>
-      <Header type="task" />
-      <TaskBoardContainer />
-    </div>
-  );
+  const getView = () => {
+    switch (viewType) {
+      case "taskBoard": {
+        return (
+          <>
+            {/*      <Modal isOpen={Boolean(modalOpen)}>
+              <TaskCard />
+            </Modal> */}
+            <Header type="task" />
+            <TaskBoardContainer />
+            <Outlet />
+          </>
+        );
+      }
+      case "task": {
+        return (
+          <>
+            <Modal isOpen={Boolean(modalOpen)}>
+              <TaskCard />
+            </Modal>
+
+            <Outlet />
+          </>
+        );
+      }
+      default: {
+        return null;
+      }
+    }
+  };
+
+  return <div className={style.container}>{getView()}</div>;
 };

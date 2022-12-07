@@ -36,7 +36,8 @@ export const RouterComponent = () => {
           path="project/:id"
           element={<TaskBoard viewType={"taskBoard"} />}
         >
-          <Route path="task/new" element={<Preloader type="big" />} />
+          <Route path="task/new" element={<TaskBoard viewType={"task"} />} />
+          <Route path="task/:id" element={<TaskBoard viewType={"task"} />} />
         </Route>
 
         {/* <Route path="task/new" element={<TaskBoard viewType={"task"} />} />
