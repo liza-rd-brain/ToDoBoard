@@ -66,7 +66,7 @@ export type EffectType =
 
 export type ActionType =
   //TODO: set payload type!
-  | { type: "loadedData"; payload: any }
+  | { type: "loadedData"; payload: ProjectListType }
   | { type: "createProject" }
   | { type: "revertNewProject" }
   | { type: "createProject" }
@@ -81,13 +81,16 @@ export type ActionType =
 
 export type TaskPayloadType = {
   projectId: string;
-  taskItem: {
-    name: string;
-  };
+  taskItem: TaskItemType;
 };
 
-export type TaskItemType = any;
+export type TaskItemType = { name: "string"; parentId: string };
 
 export type NewProjectType = { name: string; date: number };
 
 export type HeaderType = "task" | "project";
+
+export type LoadedValueType = { projectData: NewProjectType };
+export type ProjectListType = Array<LoadedDataType>;
+
+export type LoadedDataType = { id: ProjectId; value: any };

@@ -1,8 +1,7 @@
-import { LoadedDataType, ProjectListType } from "../../effect/useFireBase";
-import { StateDataType } from "../../types";
+import { LoadedDataType, ProjectListType, StateDataType } from "../../types";
 
-export const getStateObject = (array: ProjectListType): StateDataType => {
-  return array.reduce((result: StateDataType, projectItem: LoadedDataType) => {
+export const getStateObject = (array: ProjectListType): any => {
+  return array.reduce((result: any, projectItem: LoadedDataType) => {
     return {
       ...result,
       [projectItem.id]: {

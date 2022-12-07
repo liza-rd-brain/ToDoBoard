@@ -20,16 +20,12 @@ export const ProjectBoard = () => {
       }
 
       default: {
-        return (
-          <>
-            <ProjectBoardContainer />
-          </>
-        );
+        return <ProjectBoardContainer />;
       }
     }
   };
 
-  useLoadFireBase();
+  useLoadFireBase({ viewType: "projectBoard" });
 
   return (
     <div className={style.container}>

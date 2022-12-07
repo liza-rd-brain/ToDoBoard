@@ -13,8 +13,8 @@ export const AppContainer: FC<{ children: JSX.Element }> = ({ children }) => {
   const endedDrag = (result: DropResult) => {
     dispatch({ type: "endedDrag", payload: result });
   };
-  /* 
-  useFireBase(currQuery); */
+
+  useFireBase();
 
   return <DragDropContext onDragEnd={endedDrag}>{children}</DragDropContext>;
 };

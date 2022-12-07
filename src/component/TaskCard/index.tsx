@@ -26,6 +26,7 @@ export const TaskCard = () => {
           projectId: currProjectID.id,
           taskItem: {
             name: textInput.current?.value,
+            parentId: currProjectID.id,
           },
         },
       });

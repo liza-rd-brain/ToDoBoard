@@ -19,10 +19,18 @@ import {
 import { db, path } from "../firebase";
 import { useAppDispatch } from "../business/reducer";
 import { useSelector } from "react-redux";
-import { NewProjectType, ProjectId, State, StateDataType } from "../types";
-import { LoadedDataType } from "./useFireBase";
+import {
+  LoadedDataType,
+  NewProjectType,
+  ProjectId,
+  State,
+  StateDataType,
+  ViewTypeList,
+} from "../types";
 
-export function useLoadFireBase() {
+type EffectLoadType = { viewType: ViewTypeList; id?: string };
+
+export function useLoadFireBase({ viewType, id: projectId }: EffectLoadType) {
   const dispatch = useAppDispatch();
   const [doEffect] = useSelector((state: State) => [state.doEffect]);
 
@@ -30,21 +38,50 @@ export function useLoadFireBase() {
     switch (doEffect?.type) {
       // automatically pull data when bd update
       case "!loadFireBase": {
-        //Load hole all bd
+        switch (viewType) {
+          case "projectBoard": {
+            const currQuery = query(collection(db, path));
 
-        const currQuery = query(collection(db, path));
+            getDocs(currQuery).then((querySnapshot) => {
+              const result = querySnapshot.docs.map(
+                (doc) =>
+                  ({
+                    id: doc.id,
+                    value: doc.data(),
+                  } as LoadedDataType)
+              );
+              console.log(result);
+              dispatch({ type: "loadedData", payload: result });
+            });
 
-        getDocs(currQuery).then((querySnapshot) => {
-          const result = querySnapshot.docs.map(
-            (doc) =>
-              ({
-                id: doc.id,
-                value: doc.data(),
-              } as LoadedDataType)
-          );
-          console.log(result);
-          dispatch({ type: "loadedData", payload: result });
-        });
+            break;
+          }
+
+          case "taskBoard": {
+            if (projectId) {
+              //projectIndex - index of project where task is
+              const currQuery = query(
+                collection(db, path, projectId, "taskList")
+              );
+
+              onSnapshot(currQuery, (querySnapshot) => {
+                const taskList = querySnapshot.docs.map(
+                  (doc) =>
+                    ({
+                      id: doc.id,
+                      value: doc.data(),
+                    } as LoadedDataType)
+                );
+
+                console.log("taskLIst", taskList);
+              });
+            }
+            break;
+          }
+          default: {
+            break;
+          }
+        }
 
         break;
       }

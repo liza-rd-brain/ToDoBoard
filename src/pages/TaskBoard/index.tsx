@@ -1,24 +1,28 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import style from "./index.module.scss";
+import { ViewTypeList } from "../../types";
+import { Modal } from "../../component/Modal";
+import { useLoadFireBase } from "../../effect";
 import { Header } from "../../features/Header";
 import { TaskBoardContainer } from "../../features/TaskBoardContainer";
-
 import { TaskCard } from "../../component/TaskCard";
 
-import { Modal } from "../../component/Modal";
-import { FC } from "react";
-
-export const TaskBoard = () => {
-  const { id } = useParams();
-  //TODO: как это исправить, не работает как динамический роут pathname === "/task/new"
+export const TaskBoard = ({ viewType }: { viewType: ViewTypeList }) => {
   const { pathname } = useLocation();
 
-  const modalOpen = pathname.includes("task");
+  const pathArray = pathname.split("/");
+  const currId = pathArray.at(-1);
+
+  //TODO: прокинуть явно пропс!
+  const modalOpen = viewType === "task";
+  const currViewType = viewType || "taskBoard";
 
   // console.log("currTaskId,", id);
 
   // console.log("modalOpen", modalOpen, pathname);
+
+  useLoadFireBase({ viewType: viewType, id: currId });
 
   return (
     <div className={style.container}>
